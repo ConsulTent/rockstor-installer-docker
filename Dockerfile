@@ -1,4 +1,6 @@
 ARG TAG=15.2
+# x86_64|ARM64EFI|RaspberryPi4
+ARG PROFILE=x86_64
 FROM opensuse/leap:${TAG}
 
 # use -privileged to run docker
@@ -19,7 +21,7 @@ RUN cd rockstor-installer/; python3 -m venv kiwi-env
 RUN /rock/rockstor-installer/kiwi-env/bin/python3 -m pip install --upgrade pip
 RUN /rock/rockstor-installer/kiwi-env/bin/pip install kiwi kiwi-boxed-plugin
 
-CMD /rock/rockstor-installer/kiwi-env/bin/kiwi-ng --profile=Leap15.2.x86_64 --type oem system build --description /rock/rockstor-installer/. --target-dir /tmp/images/
+CMD /rock/rockstor-installer/kiwi-env/bin/kiwi-ng --profile=Leap$TAG.$PROFILE --type oem system build --description /rock/rockstor-installer/. --target-dir /tmp/images/
 
 
 # CMD ["/bin/bash"]
